@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Vue.js Demo</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p> ${ message }$ </p>
+        <ul>
+            <li v-for="product in products">
+                <h1>${ product.title }$</h1>
+                <p> ${ product.description }$ </p>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+    new Vue({
+    delimiters: ['${', '}$'],
+    el: '#app',
+    data: {
+        products: [],
+        message: "Hello Vue.js"
+
+    },
+    {% comment %} http: {
+        root: 'http://localhost:8000',
+        headers: {
+          Authorization: '<TOKEN_HERE>'
+        }
+    },
+    methods: {
+        getProducts: function () {
+            this.$http.get('products/').then(function (data,status,request) {
+            if (status == 200) {
+                this.products = data.body.results;
+             }   
+            })
+        }
+    },
+    mounted: function () {
+        this.getProducts();
+    } {% endcomment %}
+    })
+    </script>
+</body>
+
+</html>
